@@ -36,7 +36,10 @@ int main( void )
     GLfloat lineVertices[] =
     {
         200, 100, 0,
-        100, 300, 0
+        100, 300, 0,
+        500, 50, 0,
+        320, 100, 0,
+        10, 10, 0
     };
     
     // Loop until the user closes the window
@@ -44,20 +47,10 @@ int main( void )
     {
         glClear( GL_COLOR_BUFFER_BIT );
         
-        // Render OpenGL here
-        glEnable( GL_LINE_SMOOTH );
-        glEnable( GL_LINE_STIPPLE );
-        glPushAttrib( GL_LINE_BIT );
-        glLineWidth( 10 );
-        glLineStipple( 1, 0x00FF );
         glEnableClientState( GL_VERTEX_ARRAY );
         glVertexPointer( 3, GL_FLOAT, 0, lineVertices );
-        glDrawArrays( GL_LINES, 0, 2 );
+        glDrawArrays( GL_LINE_LOOP, 0, 5 );
         glDisableClientState( GL_VERTEX_ARRAY );
-        glPopAttrib( );
-        glDisable( GL_LINE_STIPPLE );
-        glDisable( GL_LINE_SMOOTH );
-        
         
         // Swap front and back buffers
         glfwSwapBuffers( window );
