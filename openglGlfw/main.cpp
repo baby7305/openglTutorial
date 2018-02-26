@@ -33,8 +33,11 @@ int main( void )
     glMatrixMode( GL_MODELVIEW ); // (default matrix mode) modelview matrix defines how your objects are transformed (meaning translation, rotation and scaling) in your world
     glLoadIdentity( ); // same as above comment
     
-    GLfloat pointVertex[] = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-    GLfloat pointVertex2[] = { SCREEN_WIDTH * 0.75, SCREEN_HEIGHT / 2 };
+    GLfloat lineVertices[] =
+    {
+        200, 100, 0,
+        100, 300, 0
+    };
     
     // Loop until the user closes the window
     while ( !glfwWindowShouldClose( window ) )
@@ -42,19 +45,19 @@ int main( void )
         glClear( GL_COLOR_BUFFER_BIT );
         
         // Render OpenGL here
-        glEnable( GL_POINT_SMOOTH ); // make the point circular
-        glEnableClientState( GL_VERTEX_ARRAY ); // tell OpenGL that you're using a vertex array for fixed-function attribute
-        glPointSize( 50 ); // must be added before glDrawArrays is called
-        glVertexPointer( 2, GL_FLOAT, 0, pointVertex ); // point to the vertices to be used
-        glDrawArrays( GL_POINTS, 0, 1 ); // draw the vertixes
-        glDisableClientState( GL_VERTEX_ARRAY ); // tell OpenGL that you're finished using the vertex arrayattribute
-        glDisable( GL_POINT_SMOOTH ); // stop the smoothing to make the points circular
+        glEnable( GL_LINE_SMOOTH );
+        glEnable( GL_LINE_STIPPLE );
+        glPushAttrib( GL_LINE_BIT );
+        glLineWidth( 10 );
+        glLineStipple( 1, 0x00FF );
+        glEnableClientState( GL_VERTEX_ARRAY );
+        glVertexPointer( 3, GL_FLOAT, 0, lineVertices );
+        glDrawArrays( GL_LINES, 0, 2 );
+        glDisableClientState( GL_VERTEX_ARRAY );
+        glPopAttrib( );
+        glDisable( GL_LINE_STIPPLE );
+        glDisable( GL_LINE_SMOOTH );
         
-        glEnableClientState( GL_VERTEX_ARRAY ); // tell OpenGL that you're using a vertex array for fixed-function attribute
-        glVertexPointer( 2, GL_FLOAT, 0, pointVertex2 ); // point to the vertices to be used
-        glPointSize( 10 ); // must be added before glDrawArrays is called
-        glDrawArrays( GL_POINTS, 0, 1 ); // draw the vertixes
-        glDisableClientState( GL_VERTEX_ARRAY ); // tell OpenGL that you're finished using the vertex arrayattribute
         
         // Swap front and back buffers
         glfwSwapBuffers( window );
