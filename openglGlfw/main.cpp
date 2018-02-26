@@ -38,11 +38,12 @@ int main( void )
         20, 100, 0,
         100, 300, 0,
         500, 50, 0,
-        500, 450, 0,
-        600, 320, 0
+        320, 10, 0,
+        40, 40, 0
     };
     
-    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ); // polygon drawing mode (GL_POINT, GL_LINE, GL_FILL)
+    
     
     // Loop until the user closes the window
     while ( !glfwWindowShouldClose( window ) )
@@ -52,7 +53,7 @@ int main( void )
         // render OpenGL here
         glEnableClientState( GL_VERTEX_ARRAY );
         glVertexPointer( 3, GL_FLOAT, 0, polygonVertices );
-        glDrawArrays( GL_TRIANGLE_STRIP, 0, 5 );
+        glDrawArrays( GL_POLYGON, 0, 5 );
         glDisableClientState( GL_VERTEX_ARRAY );
         
         // Swap front and back buffers
